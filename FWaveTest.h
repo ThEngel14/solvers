@@ -9,7 +9,7 @@
 #define FWAVETEST_H_
 
 #include <cxxtest/TestSuite.h>
-#include "../../TsunamiOriginal/SWE1D/src/types.h"
+#include "../../src/types.h"
 #include "FWave.hpp"
 
 class FWaveTest : public CxxTest::TestSuite
@@ -450,16 +450,16 @@ public:
 		 * hul = 2.0<br>
 		 * hur = 2.0<br>
 		 * <br>
-		 * bl = 4.0<br>
-		 * br = 4.0<br>
+		 * bl = -4.0<br>
+		 * br = -4.0<br>
 		 */
 		void testSameBathymethrySameHeightSpeedRightLeft(void) {
 			T heightLeft = 6.0f;
 			T heightRight = 6.0f;
 			T speedLeft = 2.0f;
 			T speedRight = -2.0f;
-			T bl = 4.0f;
-			T br = 4.0f;
+			T bl = -4.0f;
+			T br = -4.0f;
 
 			T hl, hr, hul, hur, maxWS;
 
@@ -480,26 +480,26 @@ public:
 	 * hul = 2.0<br>
 	 * hur = 2.0<br>
 	 * <br>
-	 * bl = 2.0<br>
-	 * br = 4.0<br>
+	 * bl = -2.0<br>
+	 * br = -4.0<br>
 	 */
 	void testIncreasingBathymethrySameHeightSpeedRight(void) {
 		T heightLeft = 6.0f;
 		T heightRight = 4.0f;
 		T speedLeft = 2.0f;
 		T speedRight = 2.0f;
-		T bl = 2.0f;
-		T br = 4.0f;
+		T bl = -2.0f;
+		T br = -4.0f;
 
 		T hl, hr, hul, hur, maxWS;
 
 		fwave.computeNetUpdates(heightLeft, heightRight, speedLeft, speedRight, bl, br, hl, hul, hr, hur, maxWS);
 
-		TS_ASSERT_DELTA(hl, -0.0237, delta);
-		TS_ASSERT_DELTA(hr, 0.1569, delta);
+		TS_ASSERT_DELTA(hl, 13.9833, delta);
+		TS_ASSERT_DELTA(hr, -92.2246, delta);
 
-		TS_ASSERT_DELTA(hul, 0.0237, delta);
-		TS_ASSERT_DELTA(hur, 0.1763, delta);
+		TS_ASSERT_DELTA(hul, -13.9833, delta);
+		TS_ASSERT_DELTA(hur, -103.6420, delta);
 	}
 
 	/**
@@ -510,26 +510,26 @@ public:
 	 * hul = -2.0<br>
 	 * hur = 2.0<br>
 	 * <br>
-	 * bl = 2.0<br>
-	 * br = 4.0<br>
+	 * bl = -2.0<br>
+	 * br = -4.0<br>
 	 */
 	void testIncreasingBathymethrySameHeightSpeedLeftRight(void) {
 		T heightLeft = 6.0f;
 		T heightRight = 4.0f;
 		T speedLeft = -2.0f;
 		T speedRight = 2.0f;
-		T bl = 2.0f;
-		T br = 4.0f;
+		T bl = -2.0f;
+		T br = -4.0f;
 
 		T hl, hr, hul, hur, maxWS;
 
 		fwave.computeNetUpdates(heightLeft, heightRight, speedLeft, speedRight, bl, br, hl, hul, hr, hur, maxWS);
 
-		TS_ASSERT_DELTA(hl, 1.9879, delta);
-		TS_ASSERT_DELTA(hr, -13.8409, delta);
+		TS_ASSERT_DELTA(hl, 15.9951, delta);
+		TS_ASSERT_DELTA(hr, -111.3632, delta);
 
-		TS_ASSERT_DELTA(hul, 2.0120, delta);
-		TS_ASSERT_DELTA(hur, 14.1743, delta);
+		TS_ASSERT_DELTA(hul, -11.9951, delta);
+		TS_ASSERT_DELTA(hur, -84.5033, delta);
 	}
 
 	/**
@@ -540,26 +540,26 @@ public:
 	 * hul = 2.0<br>
 	 * hur = -2.0<br>
 	 * <br>
-	 * bl = 2.0<br>
-	 * br = 4.0<br>
+	 * bl = -2.0<br>
+	 * br = -4.0<br>
 	 */
 	void testIncreasingBathymethrySameHeightSpeedRightLeft(void) {
 		T heightLeft = 6.0f;
 		T heightRight = 4.0f;
 		T speedLeft = 2.0f;
 		T speedRight = -2.0f;
-		T bl = 2.0f;
-		T br = 4.0f;
+		T bl = -2.0f;
+		T br = -4.0f;
 
 		T hl, hr, hul, hur, maxWS;
 
 		fwave.computeNetUpdates(heightLeft, heightRight, speedLeft, speedRight, bl, br, hl, hul, hr, hur, maxWS);
 
-		TS_ASSERT_DELTA(hl, -2.0120, delta);
-		TS_ASSERT_DELTA(hr, 14.1743, delta);
+		TS_ASSERT_DELTA(hl, 11.9951, delta);
+		TS_ASSERT_DELTA(hr, -84.5033, delta);
 
-		TS_ASSERT_DELTA(hul, -1.9879, delta);
-		TS_ASSERT_DELTA(hur, -13.8409, delta);
+		TS_ASSERT_DELTA(hul, -15.9951, delta);
+		TS_ASSERT_DELTA(hur, -111.3632, delta);
 	}
 
 	/**
@@ -570,26 +570,26 @@ public:
 	 * hul = 2.0<br>
 	 * hur = 2.0<br>
 	 * <br>
-	 * bl = 4.0<br>
-	 * br = 2.0<br>
+	 * bl = -4.0<br>
+	 * br = -2.0<br>
 	 */
 	void testDecreasingBathymethrySameHeightSpeedRight(void) {
 		T heightLeft = 4.0f;
 		T heightRight = 6.0f;
 		T speedLeft = 2.0f;
 		T speedRight = 2.0f;
-		T bl = 4.0f;
-		T br = 2.0f;
+		T bl = -4.0f;
+		T br = -2.0f;
 
 		T hl, hr, hul, hur, maxWS;
 
 		fwave.computeNetUpdates(heightLeft, heightRight, speedLeft, speedRight, bl, br, hl, hul, hr, hur, maxWS);
 
-		TS_ASSERT_DELTA(hl, 0.0237, delta);
-		TS_ASSERT_DELTA(hr, -0.1569, delta);
+		TS_ASSERT_DELTA(hl, -13.9833, delta);
+		TS_ASSERT_DELTA(hr, 92.2246, delta);
 
-		TS_ASSERT_DELTA(hul, -0.0237, delta);
-		TS_ASSERT_DELTA(hur, -0.1763, delta);
+		TS_ASSERT_DELTA(hul, 13.9833, delta);
+		TS_ASSERT_DELTA(hur, 103.6420, delta);
 	}
 
 	/**
@@ -600,26 +600,26 @@ public:
 	 * hul = -2.0<br>
 	 * hur = 2.0<br>
 	 * <br>
-	 * bl = 4.0<br>
-	 * br = 2.0<br>
+	 * bl = -4.0<br>
+	 * br = -2.0<br>
 	 */
 	void testDecreasingBathymethrySameHeightSpeedLeftRight(void) {
 		T heightLeft = 4.0f;
 		T heightRight = 6.0f;
 		T speedLeft = -2.0f;
 		T speedRight = 2.0f;
-		T bl = 4.0f;
-		T br = 2.0f;
+		T bl = -4.0f;
+		T br = -2.0f;
 
 		T hl, hr, hul, hur, maxWS;
 
 		fwave.computeNetUpdates(heightLeft, heightRight, speedLeft, speedRight, bl, br, hl, hul, hr, hur, maxWS);
 
-		TS_ASSERT_DELTA(hl, 2.0120, delta);
-		TS_ASSERT_DELTA(hr, -14.1743, delta);
+		TS_ASSERT_DELTA(hl, -11.9951, delta);
+		TS_ASSERT_DELTA(hr, 84.5033, delta);
 
-		TS_ASSERT_DELTA(hul, 1.9879, delta);
-		TS_ASSERT_DELTA(hur, 13.8409, delta);
+		TS_ASSERT_DELTA(hul, 15.9951, delta);
+		TS_ASSERT_DELTA(hur, 111.3632, delta);
 	}
 
 	/**
@@ -630,26 +630,26 @@ public:
 	 * hul = 2.0<br>
 	 * hur = -2.0<br>
 	 * <br>
-	 * bl = 4.0<br>
-	 * br = 2.0<br>
+	 * bl = -4.0<br>
+	 * br = -2.0<br>
 	 */
 	void testDecreasingBathymethrySameHeightSpeedRightLeft(void) {
 		T heightLeft = 4.0f;
 		T heightRight = 6.0f;
 		T speedLeft = 2.0f;
 		T speedRight = -2.0f;
-		T bl = 4.0f;
-		T br = 2.0f;
+		T bl = -4.0f;
+		T br = -2.0f;
 
 		T hl, hr, hul, hur, maxWS;
 
 		fwave.computeNetUpdates(heightLeft, heightRight, speedLeft, speedRight, bl, br, hl, hul, hr, hur, maxWS);
 
-		TS_ASSERT_DELTA(hl, -1.9879, delta);
-		TS_ASSERT_DELTA(hr, 13.8409, delta);
+		TS_ASSERT_DELTA(hl, -15.9951, delta);
+		TS_ASSERT_DELTA(hr, 111.3632, delta);
 
-		TS_ASSERT_DELTA(hul, -2.0120, delta);
-		TS_ASSERT_DELTA(hur, -14.1743, delta);
+		TS_ASSERT_DELTA(hul, 11.9951, delta);
+		TS_ASSERT_DELTA(hur, 84.5033, delta);
 	}
 
 	/**
@@ -660,26 +660,26 @@ public:
 	 * hul = 2.0<br>
 	 * hur = 0.0<br>
 	 * <br>
-	 * bl = 4.0<br>
-	 * br = 2.0<br>
+	 * bl = -4.0<br>
+	 * br = -2.0<br>
 	 */
 	void testDecreasingBathymethryDecreasingHeightSpeedRightStay(void) {
 		T heightLeft = 20.0f;
 		T heightRight = 20.0f;
 		T speedLeft = 2.0f;
 		T speedRight = 0.0f;
-		T bl = 4.0f;
-		T br = 2.0f;
+		T bl = -4.0f;
+		T br = -2.0f;
 
 		T hl, hr, hul, hur, maxWS;
 
 		fwave.computeNetUpdates(heightLeft, heightRight, speedLeft, speedRight, bl, br, hl, hul, hr, hur, maxWS);
 
-		TS_ASSERT_DELTA(hl, 13.0107, delta);
-		TS_ASSERT_DELTA(hr, -181.5923, delta);
+		TS_ASSERT_DELTA(hl, -15.0035, delta);
+		TS_ASSERT_DELTA(hr, 209.4069, delta);
 
-		TS_ASSERT_DELTA(hul, -15.0107, delta);
-		TS_ASSERT_DELTA(hur, -211.0076, delta);
+		TS_ASSERT_DELTA(hul, 13.0035, delta);
+		TS_ASSERT_DELTA(hur, 182.7930, delta);
 	}
 
 	/**
@@ -690,26 +690,26 @@ public:
 	 * hul = 0.0<br>
 	 * hur = -2.0<br>
 	 * <br>
-	 * bl = 4.0<br>
-	 * br = 2.0<br>
+	 * bl = -4.0<br>
+	 * br = -2.0<br>
 	 */
 	void testDecreasingBathymethryDecreasingHeightSpeedStayLeft(void) {
 		T heightLeft = 20.0f;
 		T heightRight = 20.0f;
 		T speedLeft = 0.0f;
 		T speedRight = -2.0f;
-		T bl = 4.0f;
-		T br = 2.0f;
+		T bl = -4.0f;
+		T br = -2.0f;
 
 		T hl, hr, hul, hur, maxWS;
 
 		fwave.computeNetUpdates(heightLeft, heightRight, speedLeft, speedRight, bl, br, hl, hul, hr, hur, maxWS);
 
-		TS_ASSERT_DELTA(hl, 13.0035, delta);
-		TS_ASSERT_DELTA(hr, -182.7930, delta);
+		TS_ASSERT_DELTA(hl, -15.0107, delta);
+		TS_ASSERT_DELTA(hr, 211.0076, delta);
 
-		TS_ASSERT_DELTA(hul, -15.0035, delta);
-		TS_ASSERT_DELTA(hur, -209.4069, delta);
+		TS_ASSERT_DELTA(hul, 13.0107, delta);
+		TS_ASSERT_DELTA(hur, 181.5923, delta);
 	}
 
 	/**
@@ -720,26 +720,26 @@ public:
 	 * hul = 2.0<br>
 	 * hur = 0.0<br>
 	 * <br>
-	 * bl = 2.0<br>
-	 * br = 4.0<br>
+	 * bl = -2.0<br>
+	 * br = -4.0<br>
 	 */
 	void testIncreasingBathymethryDecreasingHeightSpeedRightStay(void) {
 		T heightLeft = 20.0f;
 		T heightRight = 16.0f;
 		T speedLeft = 2.0f;
 		T speedRight = 0.0f;
-		T bl = 2.0f;
-		T br = 4.0f;
+		T bl = -2.0f;
+		T br = -4.0f;
 
 		T hl, hr, hul, hur, maxWS;
 
 		fwave.computeNetUpdates(heightLeft, heightRight, speedLeft, speedRight, bl, br, hl, hul, hr, hur, maxWS);
 
-		TS_ASSERT_DELTA(hl, 12.2918, delta);
-		TS_ASSERT_DELTA(hr, -162.6900, delta);
+		TS_ASSERT_DELTA(hl, 38.8685, delta);
+		TS_ASSERT_DELTA(hr, -514.4471, delta);
 
-		TS_ASSERT_DELTA(hul, -14.2918, delta);
-		TS_ASSERT_DELTA(hur, -190.6699, delta);
+		TS_ASSERT_DELTA(hul, -40.8685, delta);
+		TS_ASSERT_DELTA(hur, -545.2328, delta);
 	}
 
 	/**
@@ -750,26 +750,26 @@ public:
 	 * hul = 0.0<br>
 	 * hur = -2.0<br>
 	 * <br>
-	 * bl = 2.0<br>
-	 * br = 4.0<br>
+	 * bl = -2.0<br>
+	 * br = -4.0<br>
 	 */
 	void testIncreasingBathymethryDecreasingHeightSpeedStayLeft(void) {
 		T heightLeft = 20.0f;
 		T heightRight = 16.0f;
 		T speedLeft = 0.0f;
 		T speedRight = -2.0f;
-		T bl = 2.0f;
-		T br = 4.0f;
+		T bl = -2.0f;
+		T br = -4.0f;
 
 		T hl, hr, hul, hur, maxWS;
 
 		fwave.computeNetUpdates(heightLeft, heightRight, speedLeft, speedRight, bl, br, hl, hul, hr, hur, maxWS);
 
-		TS_ASSERT_DELTA(hl, 12.2833, delta);
-		TS_ASSERT_DELTA(hr, -163.9506, delta);
+		TS_ASSERT_DELTA(hl, 38.8600, delta);
+		TS_ASSERT_DELTA(hr, -518.6791, delta);
 
-		TS_ASSERT_DELTA(hul, -14.2833, delta);
-		TS_ASSERT_DELTA(hur, -188.9594, delta);
+		TS_ASSERT_DELTA(hul, -40.8600, delta);
+		TS_ASSERT_DELTA(hur, -540.5509, delta);
 	}
 };
 
