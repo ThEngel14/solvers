@@ -1,0 +1,287 @@
+\hypertarget{classsolver_1_1FWave}{}\section{solver\+:\+:F\+Wave$<$ T $>$ Class Template Reference}
+\label{classsolver_1_1FWave}\index{solver\+::\+F\+Wave$<$ T $>$@{solver\+::\+F\+Wave$<$ T $>$}}
+
+
+{\ttfamily \#include $<$F\+Wave.\+hpp$>$}
+
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structsolver_1_1FWave_1_1Quantity}{Quantity}
+\end{DoxyCompactItemize}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{classsolver_1_1FWave_a311594734127c119adecdc164293b705}{Cell\+Type} \{ \hyperlink{classsolver_1_1FWave_a311594734127c119adecdc164293b705a06547946a0e672670e8462b6ba2dea09}{Wet\+Wet}, 
+\hyperlink{classsolver_1_1FWave_a311594734127c119adecdc164293b705a5801fb68072c39ed9cabdf7e8fe3aec9}{Dry\+Dry}, 
+\hyperlink{classsolver_1_1FWave_a311594734127c119adecdc164293b705a87b36bf7ab4331cb5246dccc030afa77}{Wet\+Dry}, 
+\hyperlink{classsolver_1_1FWave_a311594734127c119adecdc164293b705a94f242a5ccfed3c65930b2d4bd7781dc}{Dry\+Wet}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classsolver_1_1FWave_a446e2721d799afa5612a3a2b8c30d668}{F\+Wave} ()
+\item 
+void \hyperlink{classsolver_1_1FWave_adfb0c6a6e5e0de65210e3f4b137582ee}{compute\+Net\+Updates} (T hl, T hr, T hul, T hur, T bl, T br, T \&outhl, T \&outhr, T \&outhul, T \&outhur, T \&outmax\+W\+S)
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static const T \hyperlink{classsolver_1_1FWave_ac3884c16c1822530961884e9f52304a2}{g} = 9.\+81
+\item 
+static const T \hyperlink{classsolver_1_1FWave_aa7adb43b1b39a0f78d0784e05f7b040e}{zero\+Tol} = 0.\+0000001
+\item 
+static const T \hyperlink{classsolver_1_1FWave_a81a9f987fa6f23ec96c557615cee17f5}{dry\+Tol} = 0.\+01
+\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classsolver_1_1FWave_a311594734127c119adecdc164293b705}{Cell\+Type} \hyperlink{classsolver_1_1FWave_a96e9fc19889c093a3b566e84165574f7}{compute\+Boundary} (\hyperlink{structsolver_1_1FWave_1_1Quantity}{Quantity} \&ql, \hyperlink{structsolver_1_1FWave_1_1Quantity}{Quantity} \&qr, T $\ast$bl, T $\ast$br)
+\item 
+T \hyperlink{classsolver_1_1FWave_afff9d749891aaa8e6efcf66962549d08}{compute\+Height\+Roe} (\hyperlink{structsolver_1_1FWave_1_1Quantity}{Quantity} \&ql, \hyperlink{structsolver_1_1FWave_1_1Quantity}{Quantity} \&qr)
+\item 
+T \hyperlink{classsolver_1_1FWave_a70acc5f433ed8236e5258fdb612c143a}{compute\+Velo\+Roe} (\hyperlink{structsolver_1_1FWave_1_1Quantity}{Quantity} \&ql, \hyperlink{structsolver_1_1FWave_1_1Quantity}{Quantity} \&qr)
+\item 
+void \hyperlink{classsolver_1_1FWave_ad17bab0aaaf1cead99aaae8df2d1207a}{compute\+Eigencoeff} (\hyperlink{structsolver_1_1FWave_1_1Quantity}{Quantity} \&ql, \hyperlink{structsolver_1_1FWave_1_1Quantity}{Quantity} \&qr, T lambda1, T lambda2, T br, T bl, T out\mbox{[}2\mbox{]})
+\item 
+void \hyperlink{classsolver_1_1FWave_a69befe04e701c375627d32b608032dae}{flux} (\hyperlink{structsolver_1_1FWave_1_1Quantity}{Quantity} \&q, T out\mbox{[}2\mbox{]})
+\item 
+void \hyperlink{classsolver_1_1FWave_ad9de808829e9fdfb2d299643cc53448b}{inverse\+Matrix} (T m\mbox{[}2\mbox{]}\mbox{[}2\mbox{]})
+\item 
+void \hyperlink{classsolver_1_1FWave_a00283d0def2919fea709631aca3e583a}{compute\+Wave\+Z} (T ec, T lambda, T out\mbox{[}2\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Enumeration Documentation}
+\hypertarget{classsolver_1_1FWave_a311594734127c119adecdc164293b705}{}\index{solver\+::\+F\+Wave@{solver\+::\+F\+Wave}!Cell\+Type@{Cell\+Type}}
+\index{Cell\+Type@{Cell\+Type}!solver\+::\+F\+Wave@{solver\+::\+F\+Wave}}
+\subsubsection[{Cell\+Type}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T$>$ enum {\bf solver\+::\+F\+Wave\+::\+Cell\+Type}}\label{classsolver_1_1FWave_a311594734127c119adecdc164293b705}
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{Wet\+Wet@{Wet\+Wet}!solver\+::\+F\+Wave@{solver\+::\+F\+Wave}}\index{solver\+::\+F\+Wave@{solver\+::\+F\+Wave}!Wet\+Wet@{Wet\+Wet}}\item[{\em 
+\hypertarget{classsolver_1_1FWave_a311594734127c119adecdc164293b705a06547946a0e672670e8462b6ba2dea09}{}Wet\+Wet\label{classsolver_1_1FWave_a311594734127c119adecdc164293b705a06547946a0e672670e8462b6ba2dea09}
+}]Both cells are wet \index{Dry\+Dry@{Dry\+Dry}!solver\+::\+F\+Wave@{solver\+::\+F\+Wave}}\index{solver\+::\+F\+Wave@{solver\+::\+F\+Wave}!Dry\+Dry@{Dry\+Dry}}\item[{\em 
+\hypertarget{classsolver_1_1FWave_a311594734127c119adecdc164293b705a5801fb68072c39ed9cabdf7e8fe3aec9}{}Dry\+Dry\label{classsolver_1_1FWave_a311594734127c119adecdc164293b705a5801fb68072c39ed9cabdf7e8fe3aec9}
+}]Both cells are dry \index{Wet\+Dry@{Wet\+Dry}!solver\+::\+F\+Wave@{solver\+::\+F\+Wave}}\index{solver\+::\+F\+Wave@{solver\+::\+F\+Wave}!Wet\+Dry@{Wet\+Dry}}\item[{\em 
+\hypertarget{classsolver_1_1FWave_a311594734127c119adecdc164293b705a87b36bf7ab4331cb5246dccc030afa77}{}Wet\+Dry\label{classsolver_1_1FWave_a311594734127c119adecdc164293b705a87b36bf7ab4331cb5246dccc030afa77}
+}]The left cell is wet, the right cell is dry \index{Dry\+Wet@{Dry\+Wet}!solver\+::\+F\+Wave@{solver\+::\+F\+Wave}}\index{solver\+::\+F\+Wave@{solver\+::\+F\+Wave}!Dry\+Wet@{Dry\+Wet}}\item[{\em 
+\hypertarget{classsolver_1_1FWave_a311594734127c119adecdc164293b705a94f242a5ccfed3c65930b2d4bd7781dc}{}Dry\+Wet\label{classsolver_1_1FWave_a311594734127c119adecdc164293b705a94f242a5ccfed3c65930b2d4bd7781dc}
+}]The left cell is dry, the right cell is wet \end{description}
+\end{Desc}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classsolver_1_1FWave_a446e2721d799afa5612a3a2b8c30d668}{}\index{solver\+::\+F\+Wave@{solver\+::\+F\+Wave}!F\+Wave@{F\+Wave}}
+\index{F\+Wave@{F\+Wave}!solver\+::\+F\+Wave@{solver\+::\+F\+Wave}}
+\subsubsection[{F\+Wave}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T$>$ {\bf solver\+::\+F\+Wave}$<$ T $>$\+::{\bf F\+Wave} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{classsolver_1_1FWave_a446e2721d799afa5612a3a2b8c30d668}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classsolver_1_1FWave_a96e9fc19889c093a3b566e84165574f7}{}\index{solver\+::\+F\+Wave@{solver\+::\+F\+Wave}!compute\+Boundary@{compute\+Boundary}}
+\index{compute\+Boundary@{compute\+Boundary}!solver\+::\+F\+Wave@{solver\+::\+F\+Wave}}
+\subsubsection[{compute\+Boundary}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T$>$ {\bf Cell\+Type} {\bf solver\+::\+F\+Wave}$<$ T $>$\+::compute\+Boundary (
+\begin{DoxyParamCaption}
+\item[{{\bf Quantity} \&}]{ql, }
+\item[{{\bf Quantity} \&}]{qr, }
+\item[{T $\ast$}]{bl, }
+\item[{T $\ast$}]{br}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}\label{classsolver_1_1FWave_a96e9fc19889c093a3b566e84165574f7}
+Look up the height of both sides and determine the property of the edge as celltype.
+
+
+\begin{DoxyParams}{Parameters}
+{\em \&ql} & \hyperlink{structsolver_1_1FWave_1_1Quantity}{Quantity} \mbox{[}h, (hu)T\mbox{]} of left cell \\
+\hline
+{\em \&qr} & \hyperlink{structsolver_1_1FWave_1_1Quantity}{Quantity} \mbox{[}h, (hu)T\mbox{]} of right cell \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Cell\+Type state of the edge 
+\end{DoxyReturn}
+\hypertarget{classsolver_1_1FWave_ad17bab0aaaf1cead99aaae8df2d1207a}{}\index{solver\+::\+F\+Wave@{solver\+::\+F\+Wave}!compute\+Eigencoeff@{compute\+Eigencoeff}}
+\index{compute\+Eigencoeff@{compute\+Eigencoeff}!solver\+::\+F\+Wave@{solver\+::\+F\+Wave}}
+\subsubsection[{compute\+Eigencoeff}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T$>$ void {\bf solver\+::\+F\+Wave}$<$ T $>$\+::compute\+Eigencoeff (
+\begin{DoxyParamCaption}
+\item[{{\bf Quantity} \&}]{ql, }
+\item[{{\bf Quantity} \&}]{qr, }
+\item[{T}]{lambda1, }
+\item[{T}]{lambda2, }
+\item[{T}]{br, }
+\item[{T}]{bl, }
+\item[{T}]{out\mbox{[}2\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}\label{classsolver_1_1FWave_ad17bab0aaaf1cead99aaae8df2d1207a}
+Compute the eigencoefficients a\+\_\+p by using the wavespeeds and the flux formula. (Formula (8))
+
+
+\begin{DoxyParams}{Parameters}
+{\em \&ql} & \hyperlink{structsolver_1_1FWave_1_1Quantity}{Quantity} \mbox{[}h, (hu)T\mbox{]} of left cell \\
+\hline
+{\em \&qr} & \hyperlink{structsolver_1_1FWave_1_1Quantity}{Quantity} \mbox{[}h, (hu)T\mbox{]} of right cell \\
+\hline
+{\em lambda1} & Wavespeed 1 \\
+\hline
+{\em lambda2} & Wavespeed 2 \\
+\hline
+{\em out\mbox{[}2\mbox{]}} & output array of size 2, contains eigencoefficients a\+\_\+1 and a\+\_\+2 \\
+\hline
+\end{DoxyParams}
+\hypertarget{classsolver_1_1FWave_afff9d749891aaa8e6efcf66962549d08}{}\index{solver\+::\+F\+Wave@{solver\+::\+F\+Wave}!compute\+Height\+Roe@{compute\+Height\+Roe}}
+\index{compute\+Height\+Roe@{compute\+Height\+Roe}!solver\+::\+F\+Wave@{solver\+::\+F\+Wave}}
+\subsubsection[{compute\+Height\+Roe}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T$>$ T {\bf solver\+::\+F\+Wave}$<$ T $>$\+::compute\+Height\+Roe (
+\begin{DoxyParamCaption}
+\item[{{\bf Quantity} \&}]{ql, }
+\item[{{\bf Quantity} \&}]{qr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}\label{classsolver_1_1FWave_afff9d749891aaa8e6efcf66962549d08}
+Compute height h(hl,hr) = 0.\+5(hl + hr). (Formula (4))
+
+
+\begin{DoxyParams}{Parameters}
+{\em \&ql} & \hyperlink{structsolver_1_1FWave_1_1Quantity}{Quantity} \mbox{[}h, (hu)T\mbox{]} of left cell \\
+\hline
+{\em \&qr} & \hyperlink{structsolver_1_1FWave_1_1Quantity}{Quantity} \mbox{[}h, (hu)T\mbox{]} of right cell \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Height h\+\_\+\+Roe 
+\end{DoxyReturn}
+\hypertarget{classsolver_1_1FWave_adfb0c6a6e5e0de65210e3f4b137582ee}{}\index{solver\+::\+F\+Wave@{solver\+::\+F\+Wave}!compute\+Net\+Updates@{compute\+Net\+Updates}}
+\index{compute\+Net\+Updates@{compute\+Net\+Updates}!solver\+::\+F\+Wave@{solver\+::\+F\+Wave}}
+\subsubsection[{compute\+Net\+Updates}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T$>$ void {\bf solver\+::\+F\+Wave}$<$ T $>$\+::compute\+Net\+Updates (
+\begin{DoxyParamCaption}
+\item[{T}]{hl, }
+\item[{T}]{hr, }
+\item[{T}]{hul, }
+\item[{T}]{hur, }
+\item[{T}]{bl, }
+\item[{T}]{br, }
+\item[{T \&}]{outhl, }
+\item[{T \&}]{outhr, }
+\item[{T \&}]{outhul, }
+\item[{T \&}]{outhur, }
+\item[{T \&}]{outmax\+W\+S}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{classsolver_1_1FWave_adfb0c6a6e5e0de65210e3f4b137582ee}
+Compute left and right going net-\/updates.
+
+
+\begin{DoxyParams}{Parameters}
+{\em \&hl} & height on the left side of the edge. \\
+\hline
+{\em \&hr} & height on the right side of the edge. \\
+\hline
+{\em \&hul} & momentum on the left side of the edge. \\
+\hline
+{\em \&hur} & momentum on the right side of the edge. \\
+\hline
+{\em \&bl} & bathymetry on the left side of the edge. \\
+\hline
+{\em \&br} & bathymetry on the right side of the edge.\\
+\hline
+{\em \&outhl} & output height of the cell on the left side of the edge. \\
+\hline
+{\em \&outhr} & output height of the cell on the right side of the edge. \\
+\hline
+{\em \&outhul} & output momentum of the cell on the left side of the edge. \\
+\hline
+{\em \&outhur} & output momentum of the cell on the right side of the edge. \\
+\hline
+{\em \&outmax\+W\+S} & will be set to\+: Maximum (linearized) wave speed -\/$>$ Should be used in the C\+F\+L-\/condition. \\
+\hline
+\end{DoxyParams}
+\hypertarget{classsolver_1_1FWave_a70acc5f433ed8236e5258fdb612c143a}{}\index{solver\+::\+F\+Wave@{solver\+::\+F\+Wave}!compute\+Velo\+Roe@{compute\+Velo\+Roe}}
+\index{compute\+Velo\+Roe@{compute\+Velo\+Roe}!solver\+::\+F\+Wave@{solver\+::\+F\+Wave}}
+\subsubsection[{compute\+Velo\+Roe}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T$>$ T {\bf solver\+::\+F\+Wave}$<$ T $>$\+::compute\+Velo\+Roe (
+\begin{DoxyParamCaption}
+\item[{{\bf Quantity} \&}]{ql, }
+\item[{{\bf Quantity} \&}]{qr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}\label{classsolver_1_1FWave_a70acc5f433ed8236e5258fdb612c143a}
+(ul $\ast$ sqrt(hl) + ur $\ast$ sqrt(hr)) Compute height u(hl,hr) = -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/--- (Formula (4)) (sqrt(hl) + sqrt(hr))
+
+
+\begin{DoxyParams}{Parameters}
+{\em \&ql} & \hyperlink{structsolver_1_1FWave_1_1Quantity}{Quantity} \mbox{[}h, (hu)T\mbox{]} of left cell \\
+\hline
+{\em \&qr} & \hyperlink{structsolver_1_1FWave_1_1Quantity}{Quantity} \mbox{[}h, (hu)T\mbox{]} of right cell \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Velocity u\+\_\+\+Roe 
+\end{DoxyReturn}
+\hypertarget{classsolver_1_1FWave_a00283d0def2919fea709631aca3e583a}{}\index{solver\+::\+F\+Wave@{solver\+::\+F\+Wave}!compute\+Wave\+Z@{compute\+Wave\+Z}}
+\index{compute\+Wave\+Z@{compute\+Wave\+Z}!solver\+::\+F\+Wave@{solver\+::\+F\+Wave}}
+\subsubsection[{compute\+Wave\+Z}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T$>$ void {\bf solver\+::\+F\+Wave}$<$ T $>$\+::compute\+Wave\+Z (
+\begin{DoxyParamCaption}
+\item[{T}]{ec, }
+\item[{T}]{lambda, }
+\item[{T}]{out\mbox{[}2\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}\label{classsolver_1_1FWave_a00283d0def2919fea709631aca3e583a}
+Multiplicate eigencoefficient with eigenvector
+
+
+\begin{DoxyParams}{Parameters}
+{\em ec} & Eigencoefficient \\
+\hline
+{\em lambda} & Wavespeed to corresponding eigenvector \\
+\hline
+{\em out\mbox{[}2\mbox{]}} & output array of size 2, contains \mbox{[}ec, ec $\ast$ lambda\mbox{]}$^\wedge$\+T \\
+\hline
+\end{DoxyParams}
+\hypertarget{classsolver_1_1FWave_a69befe04e701c375627d32b608032dae}{}\index{solver\+::\+F\+Wave@{solver\+::\+F\+Wave}!flux@{flux}}
+\index{flux@{flux}!solver\+::\+F\+Wave@{solver\+::\+F\+Wave}}
+\subsubsection[{flux}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T$>$ void {\bf solver\+::\+F\+Wave}$<$ T $>$\+::flux (
+\begin{DoxyParamCaption}
+\item[{{\bf Quantity} \&}]{q, }
+\item[{T}]{out\mbox{[}2\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}\label{classsolver_1_1FWave_a69befe04e701c375627d32b608032dae}
+Evaluating the flux formula f = \mbox{[}hu, hu$^\wedge$2 + 0.\+5$\ast$g$\ast$h$^\wedge$2\mbox{]}$^\wedge$\+T
+
+
+\begin{DoxyParams}{Parameters}
+{\em q} & \hyperlink{structsolver_1_1FWave_1_1Quantity}{Quantity} to be used for the flux calculation \\
+\hline
+{\em out\mbox{[}2\mbox{]}} & output array of size 2, contains \mbox{[}hu, hu$^\wedge$2 + 0.\+5$\ast$g$\ast$h$^\wedge$2\mbox{]}$^\wedge$\+T \\
+\hline
+\end{DoxyParams}
+\hypertarget{classsolver_1_1FWave_ad9de808829e9fdfb2d299643cc53448b}{}\index{solver\+::\+F\+Wave@{solver\+::\+F\+Wave}!inverse\+Matrix@{inverse\+Matrix}}
+\index{inverse\+Matrix@{inverse\+Matrix}!solver\+::\+F\+Wave@{solver\+::\+F\+Wave}}
+\subsubsection[{inverse\+Matrix}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T$>$ void {\bf solver\+::\+F\+Wave}$<$ T $>$\+::inverse\+Matrix (
+\begin{DoxyParamCaption}
+\item[{T}]{m\mbox{[}2\mbox{]}\mbox{[}2\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}\label{classsolver_1_1FWave_ad9de808829e9fdfb2d299643cc53448b}
+Inverts a given 2x2 matrix
+
+
+\begin{DoxyParams}{Parameters}
+{\em m} & 2x2 Matrix to be inverted and also the one in which the result will be stored. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Data Documentation}
+\hypertarget{classsolver_1_1FWave_a81a9f987fa6f23ec96c557615cee17f5}{}\index{solver\+::\+F\+Wave@{solver\+::\+F\+Wave}!dry\+Tol@{dry\+Tol}}
+\index{dry\+Tol@{dry\+Tol}!solver\+::\+F\+Wave@{solver\+::\+F\+Wave}}
+\subsubsection[{dry\+Tol}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T$>$ const T {\bf solver\+::\+F\+Wave}$<$ T $>$\+::dry\+Tol = 0.\+01\hspace{0.3cm}{\ttfamily [static]}}\label{classsolver_1_1FWave_a81a9f987fa6f23ec96c557615cee17f5}
+All water heights below this limit are handled as dry \hypertarget{classsolver_1_1FWave_ac3884c16c1822530961884e9f52304a2}{}\index{solver\+::\+F\+Wave@{solver\+::\+F\+Wave}!g@{g}}
+\index{g@{g}!solver\+::\+F\+Wave@{solver\+::\+F\+Wave}}
+\subsubsection[{g}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T$>$ const T {\bf solver\+::\+F\+Wave}$<$ T $>$\+::g = 9.\+81\hspace{0.3cm}{\ttfamily [static]}}\label{classsolver_1_1FWave_ac3884c16c1822530961884e9f52304a2}
+gravity constant g = 9.\+81 m/s² \hypertarget{classsolver_1_1FWave_aa7adb43b1b39a0f78d0784e05f7b040e}{}\index{solver\+::\+F\+Wave@{solver\+::\+F\+Wave}!zero\+Tol@{zero\+Tol}}
+\index{zero\+Tol@{zero\+Tol}!solver\+::\+F\+Wave@{solver\+::\+F\+Wave}}
+\subsubsection[{zero\+Tol}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T$>$ const T {\bf solver\+::\+F\+Wave}$<$ T $>$\+::zero\+Tol = 0.\+0000001\hspace{0.3cm}{\ttfamily [static]}}\label{classsolver_1_1FWave_aa7adb43b1b39a0f78d0784e05f7b040e}
+All values below this limit are handled like zero 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{FWave_8hpp}{F\+Wave.\+hpp}\end{DoxyCompactItemize}
