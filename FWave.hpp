@@ -15,14 +15,23 @@
 			T hu;
 		};
 		enum CellType{
+			/** Both cells are wet */
 			WetWet,
+			/** Both cells are dry */
 			DryDry,
+			/** The left cell is wet, the right cell is dry */
 			WetDry,
+			/** The left cell is dry, the right cell is wet */
 			DryWet
 		};
+
+		/** gravity constant g = 9.81 m/s² */
 		static const T g = 9.81;
+		/** All values below this limit are handled like zero */
 		static const T zeroTol = 0.0000001;
+		/** All water heights below this limit are handled as dry */
 		static const T dryTol = 0.01;
+
 		/**
 		 * Compute left and right going net-updates.
 		 *
