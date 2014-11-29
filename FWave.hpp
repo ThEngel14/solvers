@@ -26,11 +26,11 @@
 		};
 
 		/** gravity constant g = 9.81 m/s² */
-		static const T g = 9.81;
+		static const T g = (T)9.81;
 		/** All values below this limit are handled like zero */
-		static const T zeroTol = 0.0000001;
+		static const T zeroTol = (T)0.000000001;
 		/** All water heights below this limit are handled as dry */
-		static const T dryTol = 0.01;
+		static const T dryTol = (T)0.01;
 
 		/**
 		 * Compute left and right going net-updates.
@@ -75,13 +75,6 @@
 			T lambda1 = u - h;
 			T lambda2 = u + h;
 
-			//Formula (9)
-			if(lambda1 < 0 && lambda2 < 0) {
-				lambda2 = (T)0;
-			} else if(lambda1 > 0 && lambda2 > 0) {
-				lambda1 = (T)0;
-			}
-
 			//Compute eigencoefficients [a_1 , a_2] (Formula (8))
 			T ec[2];
 			computeEigencoeff(ql, qr, lambda1, lambda2,br, bl, ec);
@@ -92,27 +85,39 @@
 			computeWaveZ(ec[1], lambda2, z2);
 
 			//Formula (7)
-			if(lambda1 > 0) {
+			if(lambda1 > zeroTol) {
 				outhr += z1[0];
 				outhur += z1[1];
-			} else if(lambda1 < 0) {
+			} else if(lambda1 < -zeroTol) {
 				outhl += z1[0];
 				outhul += z1[1];
+			}else{
+				outhr += (T)0.5*z1[0];
+				outhl += (T)0.5*z1[0];
+				outhur += (T)0.5*z1[1];
+				outhul += (T)0.5*z1[1];
 			}
-			if(lambda2 > 0) {
+			if(lambda2 > zeroTol) {
 				outhr += z2[0];
 				outhur += z2[1];
-			} else if(lambda2 < 0) {
+			} else if(lambda2 < -zeroTol) {
 				outhl += z2[0];
 				outhul += z2[1];
+			}else{
+				outhr += (T)0.5*z2[0];
+				outhl += (T)0.5*z2[0];
+				outhur += (T)0.5*z2[1];
+				outhul += (T)0.5*z2[1];
 			}
 			outmaxWS = std::max( std::fabs(lambda1) , std::fabs(lambda2) );
 
 			//Dry cells staying dry
 			if(ct == WetDry){
-				outhr = outhur = (T)0;
+				outhr = 0;
+				outhur = 0;
 			}else if(ct == DryWet){
-				outhl = outhul = (T)0;
+				outhl = 0;
+				outhul = 0;
 			}
 		};
 	private:
@@ -133,7 +138,7 @@
 					//As2. Formula (4)
 					ql.h = qr.h;
 					ql.hu = -qr.hu;
-					bl = br;
+					*bl = *br;
 					return DryWet;
 				}
 			}else{
@@ -141,7 +146,7 @@
 					//Wet-Dry: left incoming wave get reflected
 					qr.h = ql.h;
 					qr.hu = -ql.hu;
-					br = bl;
+					*br = *bl;
 					return WetDry;
 				}else{
 					//Wet-Wet: Nothing changes
@@ -190,11 +195,11 @@
 			flux(qr, fqr);
 			flux(ql, fql);
 
-			T bathymetry[] = {0, -(g * (br-bl) * ((ql.h+qr.h)/2))};
+			T bathymetry = -g * (T)0.5 * (br-bl) * (ql.h+qr.h);
 
-			T dFlux[] = {fqr[0]-fql[0], fqr[1]-fql[1] - bathymetry[1]};
+			T dFlux[] = {fqr[0]-fql[0], fqr[1]-fql[1] - bathymetry};
 
-			T mat[2][2] = { {1.0f, 1.0f}, {lambda1, lambda2}};
+			T mat[2][2] = { {(T)1.0, (T)1.0}, {lambda1, lambda2}};
 
 			inverseMatrix(mat);
 			out[0] = mat[0][0] * dFlux[0] + mat[0][1] * dFlux[1];
@@ -209,7 +214,7 @@
 		void flux(Quantity &q, T out[2]) {
 			T u = q.hu / q.h;
 			out[0] = q.hu;
-			out[1] = q.h * (u * u) + 0.5f * g * q.h * q.h;
+			out[1] = q.hu * u + (T)0.5 * g * q.h * q.h;
 		};
 		/**
 		 * Inverts a given 2x2 matrix
@@ -226,10 +231,10 @@
 
 			assert(std::fabs(det) > zeroTol);
 
-			m[0][0] = (1.0f / det) * d;
-			m[0][1] = (1.0f / det) * (-b);
-			m[1][0] = (1.0f / det) * (-c);
-			m[1][1] = (1.0f / det) * a;
+			m[0][0] = ((T)1.0 / det) * d;
+			m[0][1] = ((T)1.0 / det) * (-b);
+			m[1][0] = ((T)1.0 / det) * (-c);
+			m[1][1] = ((T)1.0 / det) * a;
 		};
 		/**
 		 * Multiplicate eigencoefficient with eigenvector
